@@ -6,9 +6,18 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.gamingnews.gamingapp.databinding.ActivityMainBinding;
+import com.gamingnews.gamingapp.webservices.Service;
+import com.gamingnews.gamingapp.webservices.api.ServiceApi;
+import com.gamingnews.gamingapp.webservices.models.Item;
+import com.gamingnews.gamingapp.webservices.models.Rss;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +31,30 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(binding.toolbar);
         setComponents();
+        loadTestData();
+    }
+
+    private void loadTestData() {
+        ServiceApi serviceApi = new ServiceApi();
+        serviceApi.getRealSportMethods().getRealsportNews().enqueue(new Callback<Rss>() {
+            @Override
+            public void onResponse(Call<Rss> call, Response<Rss> response) {
+                for (Item item: response.body().getChannel().getItems()){
+                    Log.d("TITLE", item.getTitle());
+                    Log.d("DESCRIPTION", item.getDescription());
+                    Log.d("CREATOR", item.getCreator());
+                    Log.d("Description encoded", item.getDescriptionEncoded());   // Sega ne dava error ali nema nikakov result
+                    //Log.d("Image Url Media", item.getMediaImgObject().getMediaImageUrl());
+                    //Log.d("Image Url Enclosure", item.getEnclosureImgObject().getImageEnclosureUrl());
+                    // Za dvete sliki imam nekoj error zatoa sto ne hendlam null. isto da probam da go trgnam imeto pred dvete tocki za slikata
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Rss> call, Throwable t) {
+                Log.e("Error", t.getMessage());
+            }
+        });
     }
 
     private void setComponents() {
