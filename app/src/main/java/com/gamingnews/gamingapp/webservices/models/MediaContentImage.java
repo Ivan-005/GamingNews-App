@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Root(name = "media:content", strict = false)
 public class MediaContentImage implements Serializable {
 
-    @Attribute(name = "url", empty = "",required = false)
+    @Attribute(name = "url", empty = "",required = true)
     private String mediaImageUrl;
 
     public MediaContentImage(){
@@ -19,10 +19,6 @@ public class MediaContentImage implements Serializable {
     }
 
     public String getMediaImageUrl() {
-        if (mediaImageUrl == null){
-            mediaImageUrl = "";
-            return mediaImageUrl;
-        }
         return mediaImageUrl;
     }
 

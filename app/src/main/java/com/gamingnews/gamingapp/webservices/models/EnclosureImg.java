@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Root(name = "enclosure", strict = false)
 public class EnclosureImg implements Serializable {
 
-    @Attribute(name = "url", empty = "", required = false)
+    @Attribute(name = "url", empty = "", required = true)
     private String imageEnclosureUrl;
 
     public EnclosureImg() {
@@ -20,10 +20,6 @@ public class EnclosureImg implements Serializable {
     }
 
     public String getImageEnclosureUrl() {
-        if (imageEnclosureUrl == null) {
-            imageEnclosureUrl = "";
-            return imageEnclosureUrl;
-        }
         return imageEnclosureUrl;
     }
 

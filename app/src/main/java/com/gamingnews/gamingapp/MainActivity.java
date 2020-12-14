@@ -36,17 +36,19 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadTestData() {
         ServiceApi serviceApi = new ServiceApi();
-        serviceApi.getRealSportMethods().getRealsportNews().enqueue(new Callback<Rss>() {
+        serviceApi.getEurogamerMethods().getEuroGamerData("rss", "news").enqueue(new Callback<Rss>() {
             @Override
             public void onResponse(Call<Rss> call, Response<Rss> response) {
+
+                Log.d("RESPONSE CODE", response.toString());
                 for (Item item: response.body().getChannel().getItems()){
                     Log.d("TITLE", item.getTitle());
                     Log.d("DESCRIPTION", item.getDescription());
                     Log.d("CREATOR", item.getCreator());
-                    Log.d("Description encoded", item.getDescriptionEncoded());   // Sega ne dava error ali nema nikakov result
-                    //Log.d("Image Url Media", item.getMediaImgObject().getMediaImageUrl());
-                    //Log.d("Image Url Enclosure", item.getEnclosureImgObject().getImageEnclosureUrl());
-                    // Za dvete sliki imam nekoj error zatoa sto ne hendlam null. isto da probam da go trgnam imeto pred dvete tocki za slikata
+                    Log.d("Description encoded", item.getDescriptionEncoded());
+                    Log.d("Image Url Media", item.getMediaImgObject().getMediaImageUrl());
+                    Log.d("Image Url Enclosure", item.getEnclosureImgObject().getImageEnclosureUrl());
+
                 }
             }
 

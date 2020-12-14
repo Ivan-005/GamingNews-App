@@ -9,7 +9,7 @@ import retrofit2.http.Query;
 public interface RequestsApi {
 
     // Fetching XML from EuroGamer
-    @GET("")
+    @GET("/")
     Call<Rss> getEuroGamerData(
             @Query("format") String rss,
             @Query("type") String news);

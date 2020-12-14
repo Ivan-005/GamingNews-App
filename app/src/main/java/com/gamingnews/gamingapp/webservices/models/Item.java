@@ -22,10 +22,10 @@ public class Item implements Serializable {
 
     // Creator of post
     @Element(name = "creator", required = false)
-    private String creator;
+    private String postCreator;
 
     // First type of image
-    @Element(name = "media:content", required = false)
+    @Element(name = "content", required = false)
     private MediaContentImage mediaImgObject;
 
     // Second type of image
@@ -40,7 +40,7 @@ public class Item implements Serializable {
         this.title = title;
         this.description = description;
         this.descriptionEncoded = descriptionEncoded;
-        this.creator = creator;
+        this.postCreator = creator;
         this.mediaImgObject = imageMediaURL;
         this.enclosureImgObject = enclosureImgObject;
     }
@@ -66,10 +66,10 @@ public class Item implements Serializable {
     }
 
     public String getDescriptionEncoded() {
-//        if (descriptionEncoded == null) {
-//            descriptionEncoded = "";
-//            return descriptionEncoded;
-//        }
+        if (descriptionEncoded == null) {
+            descriptionEncoded = "";
+            return descriptionEncoded;
+        }
         return descriptionEncoded;
     }
 
@@ -78,18 +78,21 @@ public class Item implements Serializable {
     }
 
     public String getCreator() {
-        if (creator == null) {
-            creator = "";
-            return creator;
+        if (postCreator == null) {
+            postCreator = "";
+            return postCreator;
         }
-        return creator;
+        return postCreator;
     }
 
-    public void setCreator(String creator) {
-        this.creator = creator;
+    public void setCreator(String postCreator) {
+        this.postCreator = postCreator;
     }
 
     public MediaContentImage getMediaImgObject() {
+        if (mediaImgObject == null) {
+            return new MediaContentImage("NO URL TO IMAGE");
+        }
         return mediaImgObject;
     }
 
@@ -98,6 +101,9 @@ public class Item implements Serializable {
     }
 
     public EnclosureImg getEnclosureImgObject() {
+        if (enclosureImgObject == null){
+            return new EnclosureImg("NO URL TO IMAGE");
+        }
         return enclosureImgObject;
     }
 
