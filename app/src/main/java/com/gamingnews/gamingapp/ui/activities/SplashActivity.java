@@ -1,4 +1,4 @@
-package com.gamingnews.gamingapp.activities;
+package com.gamingnews.gamingapp.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 

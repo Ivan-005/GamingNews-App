@@ -1,15 +1,12 @@
-package com.gamingnews.gamingapp.adapters;
+package com.gamingnews.gamingapp.ui.adapters;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gamingnews.gamingapp.databinding.ItemFragmentNewsBinding;
-
-import java.util.List;
 
 public class NewsFragmentAdapter extends RecyclerView.Adapter<NewsFragmentAdapter.ViewHolder> {
   //  List<> mPostList;

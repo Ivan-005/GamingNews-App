@@ -9,10 +9,9 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.gamingnews.gamingapp.databinding.ActivityMainBinding;
-import com.gamingnews.gamingapp.webservices.Service;
 import com.gamingnews.gamingapp.webservices.api.ServiceApi;
-import com.gamingnews.gamingapp.webservices.models.Item;
-import com.gamingnews.gamingapp.webservices.models.Rss;
+import com.gamingnews.gamingapp.models.Item;
+import com.gamingnews.gamingapp.models.Rss;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import retrofit2.Call;
@@ -36,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadTestData() {
         ServiceApi serviceApi = new ServiceApi();
-        serviceApi.getEurogamerMethods().getEuroGamerData("rss", "news").enqueue(new Callback<Rss>() {
+        serviceApi.getGamezoneMethods().getGamezoneNews().enqueue(new Callback<Rss>() {
             @Override
             public void onResponse(Call<Rss> call, Response<Rss> response) {
 

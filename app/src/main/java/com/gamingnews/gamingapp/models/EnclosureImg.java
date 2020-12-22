@@ -1,4 +1,4 @@
-package com.gamingnews.gamingapp.webservices.models;
+package com.gamingnews.gamingapp.models;
 
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;

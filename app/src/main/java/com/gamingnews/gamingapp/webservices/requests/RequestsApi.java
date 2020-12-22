@@ -1,6 +1,6 @@
 package com.gamingnews.gamingapp.webservices.requests;
 
-import com.gamingnews.gamingapp.webservices.models.Rss;
+import com.gamingnews.gamingapp.models.Rss;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
