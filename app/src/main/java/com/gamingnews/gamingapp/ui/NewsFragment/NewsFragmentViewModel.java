@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.gamingnews.gamingapp.models.Channel;
+import com.gamingnews.gamingapp.models.Item;
+import com.gamingnews.gamingapp.models.Rss;
 import com.gamingnews.gamingapp.repositories.NewsRepository;
 
 import java.util.List;
@@ -17,8 +19,12 @@ public class NewsFragmentViewModel extends ViewModel {
         newsRepository = NewsRepository.getInstance();
     }
 
-    public LiveData<List<Channel>> getChannel() {
-        return newsRepository.getChannel();
+    public LiveData<List<Item>> getItems() {
+        return newsRepository.getItems();
+    }
+
+    public void getNewsApi() {
+        newsRepository.getNewsApi();
     }
 
 }

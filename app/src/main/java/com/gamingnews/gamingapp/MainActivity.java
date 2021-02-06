@@ -30,7 +30,8 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(binding.toolbar);
         setComponents();
-        loadTestData();
+
+
     }
 
     private void loadTestData() {

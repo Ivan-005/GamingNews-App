@@ -4,13 +4,15 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.gamingnews.gamingapp.models.Channel;
+import com.gamingnews.gamingapp.models.Item;
+import com.gamingnews.gamingapp.models.Rss;
+import com.gamingnews.gamingapp.webservices.api.NewsApiClient;
 
 import java.util.List;
 
 public class NewsRepository {
 
-    private MutableLiveData<List<Channel>> mChannel;
-
+    private NewsApiClient newsApiClient;
     private static NewsRepository instance;
 
     public static NewsRepository getInstance() {
@@ -21,10 +23,16 @@ public class NewsRepository {
     }
 
     private NewsRepository() {
-        mChannel = new MutableLiveData<>();
+        newsApiClient = NewsApiClient.getInstance();
     }
 
-    public LiveData<List<Channel>> getChannel() {
-        return mChannel;
+    public LiveData<List<Item>> getItems() {
+        return newsApiClient.getItems();
     }
+
+    public void getNewsApi() {
+        newsApiClient.getNewsApi();
+    }
+
+
 }
