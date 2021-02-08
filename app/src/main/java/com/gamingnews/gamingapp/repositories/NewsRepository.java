@@ -1,18 +1,25 @@
 package com.gamingnews.gamingapp.repositories;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.gamingnews.gamingapp.models.Channel;
 import com.gamingnews.gamingapp.models.Item;
 import com.gamingnews.gamingapp.models.Rss;
-import com.gamingnews.gamingapp.webservices.api.NewsApiClient;
+import com.gamingnews.gamingapp.webservices.api.ServiceApi;
 
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class NewsRepository {
 
-    private NewsApiClient newsApiClient;
+
+
     private static NewsRepository instance;
 
     public static NewsRepository getInstance() {
@@ -22,17 +29,30 @@ public class NewsRepository {
         return instance;
     }
 
+    //Empty constructor
     private NewsRepository() {
-        newsApiClient = NewsApiClient.getInstance();
+
     }
 
-    public LiveData<List<Item>> getItems() {
-        return newsApiClient.getItems();
+    public MutableLiveData<List<Item>> getItems() {
+        MutableLiveData<List<Item>> mItems = new MutableLiveData<>();
+
+        ServiceApi.getInstance().getGamezoneMethods().getGamezoneNews().enqueue(new Callback<Rss>() {
+            @Override
+            public void onResponse(Call<Rss> call, Response<Rss> response) {
+                if (response.code() == 200) {
+                    Log.d("Successful", "Connect");
+                    List<Item> items = response.body().getChannel().getItems();
+                    mItems.postValue(items);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Rss> call, Throwable t) {
+                Log.d("Failed", "Error");
+                mItems.postValue(null);
+            }
+        });
+        return mItems;
     }
-
-    public void getNewsApi() {
-        newsApiClient.getNewsApi();
-    }
-
-
 }

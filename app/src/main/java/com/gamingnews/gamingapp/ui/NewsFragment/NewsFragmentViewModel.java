@@ -13,18 +13,26 @@ import java.util.List;
 
 public class NewsFragmentViewModel extends ViewModel {
 
-    private NewsRepository newsRepository;
+    private MutableLiveData<List<Item>> mItems;
+    private NewsRepository mRepo;
 
+    // Empty constructor
     public NewsFragmentViewModel() {
-        newsRepository = NewsRepository.getInstance();
+
+    }
+
+    public void init() {
+        if (mItems != null) {
+            return;
+        }
+        mRepo = NewsRepository.getInstance();
+        mItems = mRepo.getItems();
     }
 
     public LiveData<List<Item>> getItems() {
-        return newsRepository.getItems();
+        if (mItems == null) {
+            mItems = NewsRepository.getInstance().getItems();
+        }
+        return mItems;
     }
-
-    public void getNewsApi() {
-        newsRepository.getNewsApi();
-    }
-
 }

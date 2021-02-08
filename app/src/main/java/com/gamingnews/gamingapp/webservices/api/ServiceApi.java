@@ -7,8 +7,18 @@ import com.gamingnews.gamingapp.webservices.requests.RequestsApi;
 
 public class ServiceApi {
 
+    public static ServiceApi instance;
+
     public ServiceApi() {
     }
+
+    public static ServiceApi getInstance() {
+        if (instance == null) {
+            instance = new ServiceApi();
+        }
+        return instance;
+    }
+
 
     public RequestsApi getEurogamerMethods() {
         return Service.getClient(Common.EUROGAMERURL).create(RequestsApi.class);

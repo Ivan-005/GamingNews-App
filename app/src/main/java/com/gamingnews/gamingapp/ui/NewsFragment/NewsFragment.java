@@ -36,8 +36,8 @@ public class NewsFragment extends Fragment {
         newsFragmentViewModel = new ViewModelProvider(this).get(NewsFragmentViewModel.class);
         // Inflating the layout for this fragment
         binding = FragmentNewsBinding.inflate(inflater, container, false);
+        newsFragmentViewModel.init();
         observeChanges();
-        getNewsApi();
         return binding.getRoot();
 
     }
@@ -47,10 +47,6 @@ public class NewsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
     }
 
-    public void getNewsApi() {
-        newsFragmentViewModel.getNewsApi();
-    }
-
     public void observeChanges() {
 
         newsFragmentViewModel.getItems().observe(getViewLifecycleOwner(), new Observer<List<Item>>() {
@@ -58,15 +54,11 @@ public class NewsFragment extends Fragment {
             @Override
             public void onChanged(List<Item> items) {
                 Log.d("VLEZE", "FUNCKCIJA");
-                if (items != null) {
-
-                    for (Item item: items) {
-                        Log.d("s", "--------------------------------------------" + item + "--------------------------------------------");
-                        Log.d("RABOTI", "--------------------------------" + item.getTitle() + "---------------------------------");
-                        String zzz = item.getTitle();
-                        
-                    }
+                for (Item item: items) {
+                    Log.d("s", "--------------------------------------------" + item.getDescription() + "--------------------------------------------");
+                    Log.d("RABOTI", "--------------------------------" + item.getTitle() + "---------------------------------");
                 }
+
             }
         });
     }
