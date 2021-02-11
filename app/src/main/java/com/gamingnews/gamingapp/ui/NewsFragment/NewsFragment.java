@@ -1,5 +1,6 @@
 package com.gamingnews.gamingapp.ui.NewsFragment;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -7,6 +8,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,12 +22,16 @@ import com.gamingnews.gamingapp.models.Channel;
 import com.gamingnews.gamingapp.models.Item;
 import com.gamingnews.gamingapp.models.Rss;
 import com.gamingnews.gamingapp.repositories.NewsRepository;
+import com.gamingnews.gamingapp.ui.adapters.NewsFragmentAdapter;
 
 import java.util.List;
 
 public class NewsFragment extends Fragment {
 
+
     FragmentNewsBinding binding;
+    NewsFragmentAdapter adapter;
+    Context context;
     public NewsFragmentViewModel newsFragmentViewModel;
 
     public NewsFragment() {
@@ -37,6 +44,7 @@ public class NewsFragment extends Fragment {
         // Inflating the layout for this fragment
         binding = FragmentNewsBinding.inflate(inflater, container, false);
         newsFragmentViewModel.init();
+        setAdapter(container);
         observeChanges();
         return binding.getRoot();
 
@@ -45,20 +53,27 @@ public class NewsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+    }
+
+    private void setAdapter(ViewGroup container) {
+        context = container.getContext();
+        adapter = new NewsFragmentAdapter(newsFragmentViewModel.getItems().getValue(), context);
+        RecyclerView.LayoutManager linearLayoutManager = new LinearLayoutManager(context);
+        binding.recyclerViewNews.setLayoutManager(linearLayoutManager);
+        binding.recyclerViewNews.setAdapter(adapter);
+
     }
 
     public void observeChanges() {
+
 
         newsFragmentViewModel.getItems().observe(getViewLifecycleOwner(), new Observer<List<Item>>() {
 
             @Override
             public void onChanged(List<Item> items) {
-                Log.d("VLEZE", "FUNCKCIJA");
-                for (Item item: items) {
-                    Log.d("s", "--------------------------------------------" + item.getDescription() + "--------------------------------------------");
-                    Log.d("RABOTI", "--------------------------------" + item.getTitle() + "---------------------------------");
-                }
-
+               adapter.notifyDataSetChanged();
             }
         });
     }

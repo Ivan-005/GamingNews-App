@@ -1,5 +1,7 @@
 package com.gamingnews.gamingapp.ui.NewsFragment;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -20,7 +22,6 @@ public class NewsFragmentViewModel extends ViewModel {
     public NewsFragmentViewModel() {
 
     }
-
     public void init() {
         if (mItems != null) {
             return;
@@ -30,9 +31,6 @@ public class NewsFragmentViewModel extends ViewModel {
     }
 
     public LiveData<List<Item>> getItems() {
-        if (mItems == null) {
-            mItems = NewsRepository.getInstance().getItems();
-        }
         return mItems;
     }
 }

@@ -91,7 +91,7 @@ public class Item implements Serializable {
 
     public MediaContentImage getMediaImgObject() {
         if (mediaImgObject == null) {
-            return new MediaContentImage("NO URL TO IMAGE");
+            return new MediaContentImage("");
         }
         return mediaImgObject;
     }
@@ -102,7 +102,7 @@ public class Item implements Serializable {
 
     public EnclosureImg getEnclosureImgObject() {
         if (enclosureImgObject == null){
-            return new EnclosureImg("NO URL TO IMAGE");
+            return new EnclosureImg("");
         }
         return enclosureImgObject;
     }
@@ -110,4 +110,5 @@ public class Item implements Serializable {
     public void setEnclosureImgObject(EnclosureImg enclosureImgObject) {
         this.enclosureImgObject = enclosureImgObject;
     }
+
 }

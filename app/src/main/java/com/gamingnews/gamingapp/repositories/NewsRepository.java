@@ -19,7 +19,7 @@ import retrofit2.Response;
 public class NewsRepository {
 
 
-
+    MutableLiveData<List<Item>> mItems;
     private static NewsRepository instance;
 
     public static NewsRepository getInstance() {
@@ -35,13 +35,12 @@ public class NewsRepository {
     }
 
     public MutableLiveData<List<Item>> getItems() {
-        MutableLiveData<List<Item>> mItems = new MutableLiveData<>();
+        mItems = new MutableLiveData<>();
 
         ServiceApi.getInstance().getGamezoneMethods().getGamezoneNews().enqueue(new Callback<Rss>() {
             @Override
             public void onResponse(Call<Rss> call, Response<Rss> response) {
                 if (response.code() == 200) {
-                    Log.d("Successful", "Connect");
                     List<Item> items = response.body().getChannel().getItems();
                     mItems.postValue(items);
                 }
